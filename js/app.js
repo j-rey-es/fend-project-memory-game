@@ -38,17 +38,23 @@ function shuffle(array) {
  */
 
 var allCards = document.querySelectorAll('.card'); //select all cards with class card, retuns an array of cards
-let openCards = [];
+let openCards = []; //creates an open cards array
 
 allCards.forEach(function(card){ //for each of the objects in the array write a function
   card.addEventListener('click', function(event) { // use event listener to listen for clicks on each card object
-    if (openCards.length >= 2){
-      card.classList.remove('open','show') //flips the card
-    }
-    else{
-      openCards.push(card);
+    if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
+      openCards.push(card); //stores opens cards in array
       card.classList.add('open','show') //opens the card
+
+      console.log(openCards.length);
+      if (openCards.length == 2){ //hide card if only two cards
+        setTimeout(function() {
+          openCards.forEach(function(card) {
+            card.classList.remove('open','show'); //flips the card
+          });
+          openCards = [];
+        }, 1000);
     }
-  ;
-  })
+    }
+  });
 });
