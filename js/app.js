@@ -47,7 +47,7 @@ function initGame(){
   
   //write setinterval function to update text within timer
 }
-
+initGame();
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
