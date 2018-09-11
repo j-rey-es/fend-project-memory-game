@@ -12,7 +12,7 @@ var cards = ['fa-diamond', 'fa-diamond',
 ];
 
 function generateCard(card){
-  return `<li class="card"><i class="fa ${card} "></i><li>`;
+  return  `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`; 
 }
 
 /*
@@ -38,13 +38,15 @@ function shuffle(array) {
 }
 
 function initGame(){
+  var deck = document.querySelector('.deck');
+  shuffle(cards);
   var cardHTML = cards.map(function(card){
     return generateCard(card);
   });
-  console.log(cardHTML);
-
+  deck.innerHTML = cardHTML.join('');
+  
+  //write setinterval function to update text within timer
 }
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -59,22 +61,34 @@ function initGame(){
 
 var allCards = document.querySelectorAll('.card'); //select all cards with class card, retuns an array of cards
 let openCards = []; //creates an open cards array
+let counter = 0;
 
 allCards.forEach(function(card){ //for each of the objects in the array write a function
   card.addEventListener('click', function(event) { // use event listener to listen for clicks on each card object
-    if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
+    if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match') ) {
       openCards.push(card); //stores opens cards in array
-      card.classList.add('open','show') //opens the card
+        card.classList.add('open','show') //opens the card
+        console.log(openCards.length);
+        ++counter;
+        moves = document.querySelector('.moves');
+        moves.innerHTML = counter;
+        if (openCards.length == 2){ //hide card if only two cards
+          if (openCards[0].dataset.card == openCards[1].dataset.card){
+            openCards[0].classList.add('match','open','show');
+            openCards[1].classList.add('match','open','show');
+            openCards = [];
+            
+          }else{
+          // if no match hide
+          setTimeout(function() {
+            openCards.forEach(function(card) {
+              card.classList.remove('open','show'); //flips the card
+            });
+            openCards = [];
+          }, 1000);}
+      }
+      
 
-      console.log(openCards.length);
-      if (openCards.length == 2){ //hide card if only two cards
-        setTimeout(function() {
-          openCards.forEach(function(card) {
-            card.classList.remove('open','show'); //flips the card
-          });
-          openCards = [];
-        }, 1000);
-    }
     }
   });
 });
