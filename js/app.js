@@ -62,7 +62,69 @@ initGame();
 var allCards = document.querySelectorAll('.card'); //select all cards with class card, retuns an array of cards
 let openCards = []; //creates an open cards array
 let counter = 0;
+let matchCards = [];
+let moves = document.querySelector('.moves');
 
+function showCard(){
+  this.classList.add('open','show');
+}
+
+function addCard(){
+  openCards.push(this);
+}
+
+function matchCard(card){
+  card.classList.add('match','open','show');
+  matchCards.push(card);
+
+}
+function checkMatch (openCards){
+  if (openCards[0].dataset.card == openCards[1].dataset.card){
+    openCards[0].matchCard;
+    openCards[1].matchCard;
+    openCards = [];
+  }
+  else
+    openCards[0].hideCard;
+    openCards[1].hideCard;
+    openCards = [];
+}
+
+function incrementCounter(){
+  counter++;
+  moves.innerHTML = counter;
+
+}
+
+function addScore() {
+
+}
+
+
+function hideCard (card){
+  card.classList.remove('open','show')
+}
+
+function playCard(){
+  openCards.push(this);
+  if (openCards = 2){
+    checkMatch();
+  }
+ 
+}
+
+
+
+allCards.forEach(function(card){
+  card.addEventListener('click',showCard);
+  card.addEventListener('click',playCard);
+    
+});
+
+
+
+
+/*
 allCards.forEach(function(card){ //for each of the objects in the array write a function
   card.addEventListener('click', function(event) { // use event listener to listen for clicks on each card object
     if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match') ) {
@@ -92,3 +154,4 @@ allCards.forEach(function(card){ //for each of the objects in the array write a 
     }
   });
 });
+*/
