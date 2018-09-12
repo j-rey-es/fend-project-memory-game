@@ -73,12 +73,17 @@ function addCard(){
   openCards.push(this);
 }
 
-function matchCard(card){
-  card.classList.add('match','open','show');
-  matchCards.push(card);
+function hideCard(){
+  this.classList.remove('open','show');
+}
+
+
+function matchCard(){
+  this.classList.add('match','open','show');
+  matchCards.push(this);
 
 }
-function checkMatch (openCards){
+function checkMatch (){
   if (openCards[0].dataset.card == openCards[1].dataset.card){
     openCards[0].matchCard;
     openCards[1].matchCard;
@@ -101,19 +106,14 @@ function addScore() {
 }
 
 
-function hideCard (card){
-  card.classList.remove('open','show')
-}
 
 function playCard(){
   openCards.push(this);
-  if (openCards = 2){
+  if (openCards == 2){
     checkMatch();
   }
  
 }
-
-
 
 allCards.forEach(function(card){
   card.addEventListener('click',showCard);
